@@ -1,0 +1,89 @@
+#body {
+  background-image: url('https://t3.ftcdn.net/jpg/03/96/11/52/240_F_396115258_ZGUN6YBXAedcryWADk7Co5YrBlKBUiNt.jpg');
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  position: relative;
+  background-color: rgba(39, 37, 37, 0.527);
+}
+
+.heading{
+  position: relative;
+  text-align: center;
+  font-family: fantasy;
+  font-size: 100px;
+  color: rgb(8, 8, 202);
+  margin: 3px;
+  top: 13px;
+  }
+
+  .red{
+    color: rgb(201, 39, 39)
+  }
+
+
+/* game board table */
+
+#board td {
+  width: 50px;
+  height: 50px;
+  border: solid 1px #666;
+}
+
+
+@keyframes fall-down {
+  0% {transform: translateY(-400px)}
+ 
+  100% {transform: translateY(0px)}
+}
+
+
+/* pieces are div within game table cells: draw as colored circles */
+
+.piece {
+ 
+  margin: 5px;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  animation: fall-down 500ms;
+}
+
+#winner{
+  position: relative;
+    text-align: center;
+    font-family: fantasy;
+    font-size: 100px;
+    animation: fall-down 400ms;
+  }
+  
+
+
+/* make pieces red/blue,  depending on player 1/2 piece */
+.p1 {
+  background-color: red;
+}
+
+.p2 {
+  background-color: blue;
+}
+
+/* column-top is table row of clickable areas for each column */
+
+#column-top td {
+  border: dashed 1px lightgray;
+}
+
+#column-top td:hover {
+  background-color: gold;
+}
