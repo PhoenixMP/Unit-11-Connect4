@@ -120,6 +120,7 @@ const placeInTable = (y, x) => {
 
 /****  Function 5 *****/
 /** endGame: announce game end */
+//add text to come down page that announces which player one, or if there is a tie.
 const endGame = (msg) => {
   const winner = document.createElement("div");
   winner.setAttribute("id", "winner");
@@ -130,7 +131,19 @@ const endGame = (msg) => {
   } else {
     winner.style.color= "blue";
   };
-  
+
+  //add a button for restarting the game. Append button to a div, append the div to the "winner" div
+  const refreshButton = document.createElement('BUTTON');
+  refreshButton.setAttribute("id","button");
+  refreshButton.innerText='Play Again?';
+  const buttonDiv = document.createElement('div')
+  buttonDiv.setAttribute('id','button-div')
+	buttonDiv.appendChild(refreshButton);
+  document.getElementById('game').appendChild(buttonDiv);
+  refreshButton.addEventListener('click', refreshPage); //refer to function 11 
+
+  //prevent further pieces from being clicked
+  document.getElementById('column-top').removeEventListener("click", handleClick);
 }
 
 
@@ -224,6 +237,14 @@ const checkForWin = () => {
     }
   }
 }
+
+
+  /****  Function 11 *****/
+  //function refreshPage
+  const refreshPage = () => {
+    location.reload();
+  }
+
 
 makeBoard(); //refer to function 1
 makeHtmlBoard(); //refer to function 2
