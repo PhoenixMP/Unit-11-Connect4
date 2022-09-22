@@ -63,22 +63,18 @@ const htmlBoard = document.querySelector("#board");
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 const findSpotForCol = (x) => {
   // TODO: write the real version of this, rather than always returning 0
-  //Initialize an array for x column values, iterate over each row of x column in "board" matrix and push value into "selectedColumn" (this column will read bottom-up)
-  const selectedColumn = [];
-  for (let y = HEIGHT-1; y > -1; y--) {
+  //Check if the column is filled. If not filled, find first value in column (checking from bottom to top) with "null". Return y of value
+  if (board[0][x]) {
+    return null;
+  }
+  for (let y = HEIGHT - 1; y > -1; y--) {
     const val = board[y][x];
-    selectedColumn.push(val);
-    
+    if (val === null) {
+      return y;
+    }
+  }
   };
-//find the index of the first instance of "null" in the column, resturn the corresponding y value in the "BOARD"
-  if (selectedColumn.some(arrVal => (arrVal === null))) {
-  const index =  selectedColumn.findIndex((val) => val === null);
-  return (selectedColumn.length-1) - index;
 
-  } else {
-  return null;
-}
-};
 
 
 /****  Function 4 *****/
