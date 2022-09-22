@@ -17,15 +17,10 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /****  Function 1 *****/
 const makeBoard = () => {
-  //Create "boardRow" array that has a length equal to "WIDTH"
-  const boardRow = [];
-  for (i=0; i<WIDTH; i++){
-    boardRow.push(null);
-  };
-//Add "boardRow" array to "board" a number of times equal to "HEIGHT"
+//Push a row filled with "null" number of times equal to "WIDTH", and repeat that number of times equal to "HEIGHT"
   for (i=0; i<HEIGHT; i++){
-    board.push(boardRow);
-  };
+    board.push(Array(WIDTH).fill(null));
+  };;
   return board;
 };
 
@@ -68,22 +63,21 @@ const htmlBoard = document.querySelector("#board");
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 const findSpotForCol = (x) => {
   // TODO: write the real version of this, rather than always returning 0
-  //Initialize an array for x column values, iterate over each row of x column in "board" matrix and push value into "selectedColumn"
+  //Initialize an array for x column values, iterate over each row of x column in "board" matrix and push value into "selectedColumn" (this column will read bottom-up)
   const selectedColumn = [];
-  for (let y = 0; y < HEIGHT; y++) {
+  for (let y = HEIGHT-1; y > -1; y--) {
     const val = board[y][x];
     selectedColumn.push(val);
+    
   };
-    //Reverse this column order, findIndex on the first "null" value 
-  const reversedColumn = [...selectedColumn.reverse()];
-
-  //if there is a "null" value in the column, then findIndex. Otherwise, return "null"
-  if (reversedColumn.some(arrVal => (arrVal === null))) {
-  const backwardIndex =  reversedColumn.findIndex((val) => val === null);
-  return (reversedColumn.length-1) - backwardIndex;
+//find the index of the first instance of "null" in the column, resturn the corresponding y value in the "BOARD"
+  if (selectedColumn.some(arrVal => (arrVal === null))) {
+  const index =  selectedColumn.findIndex((val) => val === null);
+  return (selectedColumn.length-1) - index;
 
   } else {
-  return null;}
+  return null;
+}
 };
 
 
@@ -98,23 +92,9 @@ const placeInTable = (y, x) => {
   const tdInPlay = document.getElementById(`${y}-${x}`);
   tdInPlay.append(piece);
 
-  //reconstructing the board with a temporary "tempBoard" that reconstructs the board and updates it with currPlayer value.
-  const tempBoard = []
- 
-  for (let h = 0; h < HEIGHT; h++) {
-    //from the bottom up, pushes row to "tempBoard" if a piece was not just put on that row
-      //if there was a piece just put on the row...
-      //then we change the x position in that row to the current player number, they push that row.
-    if (h!== y){
-    tempBoard.push([...board[h]]);
-    } if (h === y) {
-      let tempRow = [...board[y]]
-      tempRow.splice(x,1,currPlayer);
-      tempBoard.push(tempRow);
-     };
-    };
-    //updating the board to contain the values made in "tempBoard"
-    board = [...tempBoard];
+  //update the "board" with currPlayer value in location corresponding to the placed piece
+  board[y][x]= currPlayer;
+  
 }
 
 
